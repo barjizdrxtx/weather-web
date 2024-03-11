@@ -65,9 +65,27 @@ export default {
     methods: {
         async signup() {
             try {
-                console.log('Sign up button clicked');
+                const response = await fetch('http://localhost:5000/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: this.email,
+                        password: this.password
+                    })
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to login');
+                }
+                const data = await response.json();
+
+                localStorage.setItem('nuxtToken', data.access_token);
+
+                this.$router.push('/');
             } catch (error) {
-                console.error('Error signing up:', error);
+                console.error('Error logging in:', error);
+
             }
         },
         goToLogin() {

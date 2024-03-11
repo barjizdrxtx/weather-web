@@ -74,7 +74,7 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await fetch('https://api.tgrows.com/auth/login', {
+                const response = await fetch('http://localhost:5000/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ export default {
           
                 localStorage.setItem('nuxtToken', data.access_token);
     
-                this.$router.push('/dashboard');
+                this.$router.push('/');
             } catch (error) {
                 console.error('Error logging in:', error);
 
